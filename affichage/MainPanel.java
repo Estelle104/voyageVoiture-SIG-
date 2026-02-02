@@ -3,12 +3,12 @@ package affichage;
 import dao.*;
 import model.*;
 import service.*;
-import sig.MapManager;
 import utildb.ConnexionOracle;
 import utildb.ConnexionPSQL;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
@@ -87,21 +87,26 @@ public class MainPanel extends JPanel {
             );
 
             // Bouton Afficher carte SIG
-            btnAfficherMap = new JButton("🗺️ Afficher carte SIG");
-            btnAfficherMap.setBackground(new Color(0, 123, 255));
-            btnAfficherMap.setForeground(Color.WHITE);
-            btnAfficherMap.setFont(btnAfficherMap.getFont().deriveFont(Font.BOLD));
+
+            btnAfficherMap = new JButton("Afficher la carte SIG");
             btnAfficherMap.addActionListener(e -> {
                 try {
-                    MapManager.getInstance().openMap(connOracle);
+                    String url = "http://localhost:8080/ProjetSIG/sig.jsp";
+                    Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(
-                            this,
-                            "Erreur lors de l'ouverture de la carte SIG: " + ex.getMessage());
+                        null,
+                        "Impossible d’ouvrir la carte SIG.\nVérifie que Tomcat est lancé.",
+                        "Erreur",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                    ex.printStackTrace();
                 }
             });
+
             add(btnAfficherMap);
+
+
             add(btnAjouterConfPluie);
 
             // Choix VOYAGE
@@ -117,6 +122,30 @@ public class MainPanel extends JPanel {
             JComboBox<String> lalanaComboBox = new JComboBox<>();
             add(new JLabel("Choisissez un chemin :"));
             add(lalanaComboBox);
+
+            // Bouton Voir les coûts de réparation par Lalana
+            JButton btnVoirCoutsLalana = new JButton(" Voir coûts réparation par Lalana");
+            btnVoirCoutsLalana.setBackground(new Color(28, 107, 173));
+            btnVoirCoutsLalana.setForeground(Color.WHITE);
+            btnVoirCoutsLalana.setFont(btnVoirCoutsLalana.getFont().deriveFont(Font.BOLD));
+            btnVoirCoutsLalana.addActionListener(e -> {
+                try {
+                    int indexChemin = lalanaComboBox.getSelectedIndex();
+                    if (indexChemin < 0) {
+                        JOptionPane.showMessageDialog(this, "Veuillez choisir un chemin d'abord");
+                        return;
+                    }
+                    Vector<Lalana> cheminChoisi = cheminsTrouve.get(indexChemin);
+                    LalanaSelectionFrame frame = new LalanaSelectionFrame(connOracle, cheminChoisi);
+                    frame.setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Erreur lors de l'ouverture: " + ex.getMessage());
+                }
+            });
+            add(btnVoirCoutsLalana);
 
             // Choix VOITURE
             JComboBox<String> voitureComboBox = new JComboBox<>();

@@ -142,19 +142,15 @@ COMMIT;
 
 CREATE TABLE Simba (
     id NUMBER PRIMARY KEY,
-    descriptions VARCHAR2(25) NOT NULL,
-
-    pkDebut NUMBER(10,2) NOT NULL,
-    pkFin   NUMBER(10,2) NOT NULL,
-
-    tauxRalentissement NUMBER(5,2) NOT NULL,
-
+    descriptions VARCHAR2(25),
+    pkDebut NUMBER(10,2) ,
+    pkFin   NUMBER(10,2) ,
+    tauxRalentissement NUMBER(5,2) ,
     surface NUMBER(6,2),
     profondeur NUMBER(6,2),
-
-    idLalana NUMBER NOT NULL,
+    idLalana NUMBER ,
     idLavaka NUMBER,
-    idTypeMatiere NUMBER NOT NULL
+    idTypeMatiere NUMBER
 );
 
 CREATE SEQUENCE seq_simba START WITH 1 INCREMENT BY 1;

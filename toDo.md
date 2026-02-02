@@ -1,604 +1,104 @@
-🔴 PHASE 0 — PÉRIMÈTRE & NETTOYAGE
+(ok)  PHASE 2 — INTERFACE SWING (Personne A)
+(ok)  Tâches Personne A
+(ok)  
+(ok)      Modifier l’interface Voyage / Lalana
+(ok)  
+(ok)          afficher le coût total des réparations
+(ok)  
+(ok)      Modifier le MainPanel
+(ok)  
+(ok)          ajouter le bouton “Ouvrir la carte SIG”
+(ok)  
+(ok)      Créer la logique d’ouverture de la fenêtre SIG
+(ok)  
+(ok)  📌 Livrable :
+(ok)  ✔️ Swing affiche les coûts
+(ok)  ✔️ Bouton SIG fonctionnel
 
-Mettre InfoVoyage hors périmètre (temporairement).
+🟡 PHASE 3 — SIG MINIMAL (Personne B)
+Tâches Personne B
 
-Mettre Lavaka hors périmètre (temporairement).
+    Créer une JSP minimale (map.jsp)
 
-Se concentrer uniquement sur :
+    Intégrer Leaflet
 
-Routes Nationales (RN)
+    Afficher la carte de Madagascar
 
-Simba
+    Vérifier que la carte s’affiche correctement
 
-SIG
+📌 Livrable :
+✔️ Carte SIG visible (sans données)
 
-Calcul du coût de réparation.
+🟢 PHASE 4 — ROUTES NATIONALES (RN) SUR LA CARTE
+Personne B
 
-🟠 PHASE 1 — BASE DE DONNÉES (PostgreSQL / PostGIS)
+    Créer la Servlet RN
 
-Modifier la table Simba :
+    Renvoyer les RN en GeoJSON
 
-ajouter la colonne pkFin
-🔴 PHASE 0 — PÉRIMÈTRE & NETTOYAGE
+    Afficher la liste des RN
 
-Mettre InfoVoyage hors périmètre (temporairement).
+    Trier les RN
 
-Mettre Lavaka hors périmètre (temporairement).
+    Tracer une RN en bleu quand on clique dessus
 
-Se concentrer uniquement sur :
+Personne A (support)
 
-Routes Nationales (RN)
+    Vérifier le DAO RN
 
-Simba
+    Vérifier la cohérence des données PostGIS
 
-SIG
+📌 Livrable :
+✔️ RN visibles, cliquables et colorées en bleu
 
-Calcul du coût de réparation.
+🔵 PHASE 5 — SIMBA SUR LA CARTE
+Personne A
 
-🟠 PHASE 1 — BASE DE DONNÉES (PostgreSQL / PostGIS)
+    Créer / adapter la Servlet Simba
 
-Modifier la table Simba :
+    Gérer la récupération des Simba par RN
 
-ajouter la colonne pkFin
+    Vérifier la logique pkDebut / pkFin
 
-ajouter la colonne tauxRalentissement
+Personne B
 
-Renommer la logique :
+    Afficher les Simba en rouge sur la RN
 
-pointKilometrique → pkDebut
+    Ajouter les popups (infos Simba)
 
-Vérifier la cohérence des données existantes :
+📌 Livrable :
+✔️ Simba visibles et corrects sur la carte
 
-pkDebut <= pkFin
+🟣 PHASE 6 — NAVIGATION & FONCTIONS DEMANDÉES (Partagé)
+Tâches partagées
 
-S’assurer que les Simba sont bien rattachés à une RN.
+    Fonction afficherRN()
 
-🟡 PHASE 2 — MODÈLE JAVA
+    Fonction colorierRNEnBleu()
 
-Modifier Simba.java :
+    Fonction afficherSimbaEnRouge()
 
-ajouter pkFin
+    Fonction fermerFenetreSIG()
 
-ajouter tauxRalentissement
+    Bouton Fermer → retour au MainPanel
 
-remplacer pointKilometrique par pkDebut
+📌 Livrable :
+✔️ Navigation fluide entre Swing et SIG
+🏁 PHASE 7 — FINALISATION (Partagé)
 
-Mettre à jour :
+    Tests complets Swing ↔ SIG
 
-constructeurs
+    Nettoyage du code
 
-getters / setters
+    Préparation de la démonstration pour le jury
 
-Vérifier la compatibilité avec le reste du projet.
+📌 Livrable final :
+✔️ Projet fonctionnel, clair et bien structuré
+🧭 RÉSUMÉ EXPRESS
 
-🟢 PHASE 3 — DAO / CRUD
+    Personne A : Swing + logique métier + Servlets Simba
 
-Modifier le CRUD Simba :
+    Personne B : JSP + Leaflet + affichage RN & Simba
 
-INSERT → gérer pkDebut, pkFin, tauxRalentissement
+    Ensemble : intégration & tests
 
-UPDATE → gérer les nouvelles colonnes
-
-SELECT → récupérer toutes les colonnes
-
-Ajouter / adapter une requête :
-
-récupérer les Simba par RN
-
-Vérifier que les anciennes fonctionnalités fonctionnent toujours.
-
-🔵 PHASE 4 — LOGIQUE MÉTIER (SERVICE)
-
-Modifier la fonction de calcul du coût de réparation d’un Lalana :
-
-tenir compte de pkDebut et pkFin
-
-parcourir les Simba rencontrés sur la RN
-
-Implémenter la logique :
-
-intersection [pkDebutSimba, pkFinSimba]
-
-Intégrer :
-
-surface
-
-profondeur
-
-tauxRalentissement
-
-Tester le calcul sur plusieurs RN.
-
-🟣 PHASE 5 — INTERFACE SWING (MÉTIER)
-
-Modifier l’interface Voyage / Lalana :
-
-afficher le coût total de réparation
-
-Adapter les champs existants aux nouvelles données Simba.
-
-Tester les calculs via l’interface Swing.
-
-🟤 PHASE 6 — MAIN PANEL
-
-Modifier le MainPanel :
-
-ajouter un bouton “Ouvrir la carte SIG”
-
-Ce bouton doit :
-
-ouvrir une nouvelle fenêtre SIG
-
-conserver le MainPanel ouvert
-
-🟪 PHASE 7 — FENÊTRE SIG (SWING → JSP)
-
-Créer une nouvelle fenêtre SIG.
-
-Ajouter un bouton “Fermer la carte”.
-
-Le bouton doit :
-
-fermer la fenêtre SIG
-
-revenir au MainPanel.
-
-🌍 PHASE 8 — SIG WEB (JSP + LEAFLET)
-Routes Nationales
-
-Créer une fonction :
-
-trierRN()
-
-Créer une fonction :
-
-afficherRN()
-
-Créer une fonction :
-
-colorierRNEnBleu(RN rn)
-
-Simba
-
-Créer une fonction :
-
-afficherSimbaEnRouge(RN rn)
-
-Afficher les Simba en tenant compte :
-
-pkDebut
-
-pkFin
-
-🔗 PHASE 9 — INTERACTIONS SIG
-
-Afficher la liste de toutes les RN.
-
-Lorsqu’on clique sur une RN :
-
-la tracer sur la carte en bleu
-
-afficher ses Simba en rouge
-
-Ne pas considérer les Lavaka.
-
-🧩 PHASE 10 — STRUCTURE TECHNIQUE
-
-Créer les packages :
-
-service
-
-web.servlet
-
-Créer les servlets :
-
-GET /api/rn/all
-
-GET /api/simba/byRN/{id}
-
-Convertir les données PostGIS en GeoJSON.
-
-🧪 PHASE 11 — TESTS & VALIDATION
-
-Tester :
-
-affichage RN
-
-affichage Simba
-
-Vérifier :
-
-cohérence PK
-
-exactitude des coûts
-
-Vérifier la fermeture correcte de la fenêtre SIG.
-
-🏁 PHASE 12 — FINALISATION
-
-Nettoyer le code.
-
-Ajouter des commentaires clairs.
-
-Préparer l’explication du projet (jury / prof).🔴 PHASE 0 — PÉRIMÈTRE & NETTOYAGE
-
-Mettre InfoVoyage hors périmètre (temporairement).
-
-Mettre Lavaka hors périmètre (temporairement).
-
-Se concentrer uniquement sur :
-
-Routes Nationales (RN)
-
-Simba
-
-SIG
-
-Calcul du coût de réparation.
-
-🟠 PHASE 1 — BASE DE DONNÉES (PostgreSQL / PostGIS)
-
-Modifier la table Simba :
-
-ajouter la colonne pkFin
-
-ajouter la colonne tauxRalentissement
-
-Renommer la logique :
-
-pointKilometrique → pkDebut
-
-Vérifier la cohérence des données existantes :
-
-pkDebut <= pkFin
-
-S’assurer que les Simba sont bien rattachés à une RN.
-
-🟡 PHASE 2 — MODÈLE JAVA
-
-Modifier Simba.java :
-
-ajouter pkFin
-
-ajouter tauxRalentissement
-
-remplacer pointKilometrique par pkDebut
-
-Mettre à jour :
-
-constructeurs
-
-getters / setters
-
-Vérifier la compatibilité avec le reste du projet.
-
-🟢 PHASE 3 — DAO / CRUD
-
-Modifier le CRUD Simba :
-
-INSERT → gérer pkDebut, pkFin, tauxRalentissement
-
-UPDATE → gérer les nouvelles colonnes
-
-SELECT → récupérer toutes les colonnes
-
-Ajouter / adapter une requête :
-
-récupérer les Simba par RN
-
-Vérifier que les anciennes fonctionnalités fonctionnent toujours.
-
-🔵 PHASE 4 — LOGIQUE MÉTIER (SERVICE)
-
-Modifier la fonction de calcul du coût de réparation d’un Lalana :
-
-tenir compte de pkDebut et pkFin
-
-parcourir les Simba rencontrés sur la RN
-
-Implémenter la logique :
-
-intersection [pkDebutSimba, pkFinSimba]
-
-Intégrer :
-
-surface
-
-profondeur
-
-tauxRalentissement
-
-Tester le calcul sur plusieurs RN.
-
-🟣 PHASE 5 — INTERFACE SWING (MÉTIER)
-
-Modifier l’interface Voyage / Lalana :
-
-afficher le coût total de réparation
-
-Adapter les champs existants aux nouvelles données Simba.
-
-Tester les calculs via l’interface Swing.
-
-🟤 PHASE 6 — MAIN PANEL
-
-Modifier le MainPanel :
-
-ajouter un bouton “Ouvrir la carte SIG”
-
-Ce bouton doit :
-
-ouvrir une nouvelle fenêtre SIG
-
-conserver le MainPanel ouvert
-
-🟪 PHASE 7 — FENÊTRE SIG (SWING → JSP)
-
-Créer une nouvelle fenêtre SIG.
-
-Ajouter un bouton “Fermer la carte”.
-
-Le bouton doit :
-
-fermer la fenêtre SIG
-
-revenir au MainPanel.
-
-🌍 PHASE 8 — SIG WEB (JSP + LEAFLET)
-Routes Nationales
-
-Créer une fonction :
-
-trierRN()
-
-Créer une fonction :
-
-afficherRN()
-
-Créer une fonction :
-
-colorierRNEnBleu(RN rn)
-
-Simba
-
-Créer une fonction :
-
-afficherSimbaEnRouge(RN rn)
-
-Afficher les Simba en tenant compte :
-
-pkDebut
-
-pkFin
-
-🔗 PHASE 9 — INTERACTIONS SIG
-
-Afficher la liste de toutes les RN.
-
-Lorsqu’on clique sur une RN :
-
-la tracer sur la carte en bleu
-
-afficher ses Simba en rouge
-
-Ne pas considérer les Lavaka.
-
-🧩 PHASE 10 — STRUCTURE TECHNIQUE
-
-Créer les packages :
-
-service
-
-web.servlet
-
-Créer les servlets :
-
-GET /api/rn/all
-
-GET /api/simba/byRN/{id}
-
-Convertir les données PostGIS en GeoJSON.
-
-🧪 PHASE 11 — TESTS & VALIDATION
-
-Tester :
-
-affichage RN
-
-affichage Simba
-
-Vérifier :
-
-cohérence PK
-
-exactitude des coûts
-
-Vérifier la fermeture correcte de la fenêtre SIG.
-
-🏁 PHASE 12 — FINALISATION
-
-Nettoyer le code.
-
-Ajouter des commentaires clairs.
-
-Préparer l’explication du projet (jury / prof)
-ajouter la colonne tauxRalentissement
-
-Renommer la logique :
-
-pointKilometrique → pkDebut
-
-Vérifier la cohérence des données existantes :
-
-pkDebut <= pkFin
-
-S’assurer que les Simba sont bien rattachés à une RN.
-
-🟡 PHASE 2 — MODÈLE JAVA
-
-Modifier Simba.java :
-
-ajouter pkFin
-
-ajouter tauxRalentissement
-
-remplacer pointKilometrique par pkDebut
-
-Mettre à jour :
-
-constructeurs
-
-getters / setters
-
-Vérifier la compatibilité avec le reste du projet.
-
-🟢 PHASE 3 — DAO / CRUD
-
-Modifier le CRUD Simba :
-
-INSERT → gérer pkDebut, pkFin, tauxRalentissement
-
-UPDATE → gérer les nouvelles colonnes
-
-SELECT → récupérer toutes les colonnes
-
-Ajouter / adapter une requête :
-
-récupérer les Simba par RN
-
-Vérifier que les anciennes fonctionnalités fonctionnent toujours.
-
-🔵 PHASE 4 — LOGIQUE MÉTIER (SERVICE)
-
-Modifier la fonction de calcul du coût de réparation d’un Lalana :
-
-tenir compte de pkDebut et pkFin
-
-parcourir les Simba rencontrés sur la RN
-
-Implémenter la logique :
-
-intersection [pkDebutSimba, pkFinSimba]
-
-Intégrer :
-
-surface
-
-profondeur
-
-tauxRalentissement
-
-Tester le calcul sur plusieurs RN.
-
-🟣 PHASE 5 — INTERFACE SWING (MÉTIER)
-
-Modifier l’interface Voyage / Lalana :
-
-afficher le coût total de réparation
-
-Adapter les champs existants aux nouvelles données Simba.
-
-Tester les calculs via l’interface Swing.
-
-🟤 PHASE 6 — MAIN PANEL
-
-Modifier le MainPanel :
-
-ajouter un bouton “Ouvrir la carte SIG”
-
-Ce bouton doit :
-
-ouvrir une nouvelle fenêtre SIG
-
-conserver le MainPanel ouvert
-
-🟪 PHASE 7 — FENÊTRE SIG (SWING → JSP)
-
-Créer une nouvelle fenêtre SIG.
-
-Ajouter un bouton “Fermer la carte”.
-
-Le bouton doit :
-
-fermer la fenêtre SIG
-
-revenir au MainPanel.
-
-🌍 PHASE 8 — SIG WEB (JSP + LEAFLET)
-Routes Nationales
-
-Créer une fonction :
-
-trierRN()
-
-Créer une fonction :
-
-afficherRN()
-
-Créer une fonction :
-
-colorierRNEnBleu(RN rn)
-
-Simba
-
-Créer une fonction :
-
-afficherSimbaEnRouge(RN rn)
-
-Afficher les Simba en tenant compte :
-
-pkDebut
-
-pkFin
-
-🔗 PHASE 9 — INTERACTIONS SIG
-
-Afficher la liste de toutes les RN.
-
-Lorsqu’on clique sur une RN :
-
-la tracer sur la carte en bleu
-
-afficher ses Simba en rouge
-
-Ne pas considérer les Lavaka.
-
-🧩 PHASE 10 — STRUCTURE TECHNIQUE
-
-Créer les packages :
-
-service
-
-web.servlet
-
-Créer les servlets :
-
-GET /api/rn/all
-
-GET /api/simba/byRN/{id}
-
-Convertir les données PostGIS en GeoJSON.
-
-🧪 PHASE 11 — TESTS & VALIDATION
-
-Tester :
-
-affichage RN
-
-affichage Simba
-
-Vérifier :
-
-cohérence PK
-
-exactitude des coûts
-
-Vérifier la fermeture correcte de la fenêtre SIG.
-
-🏁 PHASE 12 — FINALISATION
-
-Nettoyer le code.
-
-Ajouter des commentaires clairs.
-
-Préparer l’explication du projet (jury / prof).
