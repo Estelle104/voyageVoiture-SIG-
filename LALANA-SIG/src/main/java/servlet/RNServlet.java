@@ -6,7 +6,7 @@ import model.RN;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.*;
-import java.util.*;
+import java.util.Vector;
 
 public class RNServlet extends HttpServlet {
 
@@ -17,7 +17,7 @@ public class RNServlet extends HttpServlet {
         PrintWriter out = res.getWriter();
 
         try {
-            List<RN> rns = RNDAO.getAll();
+            Vector<RN> rns = RNDAO.getAll();
 
             out.print("[");
             for (int i = 0; i < rns.size(); i++) {
