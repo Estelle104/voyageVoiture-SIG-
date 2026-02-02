@@ -1,0 +1,23 @@
+itu@fahasoavana:~$ sudo -u postgres psql
+[sudo] password for itu: 
+psql (14.20 (Ubuntu 14.20-0ubuntu0.22.04.1))
+Type "help" for help.
+
+postgres=# create database voyage_sig;
+CREATE DATABASE
+postgres=# \c voyage_sig
+You are now connected to database "voyage_sig" as user "postgres".
+voyage_sig=# CREATE EXTENSION postgis;
+CREATE EXTENSION
+voyage_sig=# CREATE EXTENSION postgis_topology;
+CREATE EXTENSION
+voyage_sig=# SELECT PostGIS_Version();
+            postgis_version            
+---------------------------------------
+ 3.2 USE_GEOS=1 USE_PROJ=1 USE_STATS=1
+(1 row)
+
+voyage_sig=# 
+
+
+
