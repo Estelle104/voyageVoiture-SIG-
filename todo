@@ -1,0 +1,142 @@
+javac -cp "lib/*" -d bin $(find . -name "*.java")
+java -cp "bin:lib/*" affichage.MainFrame
+
+Voyage avec Voiture
+
+Table dans postgres
+    voiture :
+        id
+        nom
+        type
+        vitesseMax
+        largeur
+        longueur
+
+Table dans Oracle:
+    gestionVoyage :
+        id
+        depart
+        destination
+        idVoiture
+
+    Lalana :
+        id
+        nom (ex.. rn2)
+        distance
+        debut
+        fin
+    
+    Lavaka :
+        id
+        idLalana
+        debutLavaka (ex.. 100e km)
+        finLavaka   (ex.. 150e km)
+        tauxRalentissement
+
+Les fonctions a faire:
+    1. Calcul du temps de voyage entre un depart et une destination 
+        en tenant compte des lavaka sur le trajet. (ok)
+    2. Trouver les points voisins d'un point pour savoir 
+        si ce lalana mene bien a la destination (fonction recursive) (ok)
+    3. Verifier si un lalana a des lavaka ou pas (ok)
+    4. Trouver les points de lavaka sur un lalana donne (ok)
+    5. getAllLavaka (ok)
+    6. getAllLalana (ok)
+    7. Trouver les lalana disponibles entre un depart et une destination donnee
+    8. fonction getById pour chaque table (il y aura des choix de voiture, de lalana etc..)
+    9. saveLavaka (pour l'interface d'entree de lavaka)
+    
+    // interface
+    1. choix de destination (gestionVoyage) dropdown des destinations disponibles
+    2. choix du trajet a parcourir (lalana) (dropdown des lalana disponibles entre le depart et la destination)
+    3. choix de la voiture (dropdown des voitures disponibles) et de la vitesse moyenne
+    4. affichage du temps de voyage calcule 
+    5. boutton start
+    6. affichage d'une route comme celui choisi, avec les lavaka dessus 
+    7. affichage d'une voiture qui avance sur la route choisie
+    8. vitesse de la voiture en fonction de la vitesse moyenne choisie et du temps de voyage calcule (ecoulement du temps reel)
+    9. affichage du temps restant pour arriver a destination
+    10. affichage d'un message a l'arrivee a destination
+    11. interface d'entree de lavaka (choix du lalana, debutLavaka, finLavaka, tauxRalentissement) et boutton saveLavaka
+    
+
+Sujet fanampiny 13-01-26
+    1.(ok) Ajouter une table pause 
+    2. (ok) creer CRUD pause 
+    3. ajouter la gestion des pauses dans le calcul du temps de voyage
+        il y a des pauses predefinis sur le lalana, par exemple, si dans un lalana,
+        il y a une pause a 100e km, qui commence a 10h00 et finit a 10h15, 
+        si la voiture passe a ce point a 10h00 , 
+        il faut ajouter 15 minutes au temps de voyage, 
+        mais si elle passe avant 10h00 ou apres 10h15,
+        on ignore la pause, mais si la voiture y passe a 10h05,
+        alors il faut ajouter 10 minutes au temps de voyage.
+    4. ajouter l'interface d'entree de pause
+    5. ajouter l'affichage des pauses sur le trajet et la voiture s'arrete pendant la pause
+    6. ajouter l'affichage du temps de pause restant pendant que la voiture est arretee
+    7. ajouter dans infoVoyage la date et l'heure de depart, 
+        la date et l'heure d'arrivee prevue (qui prend en compte les pauses)
+    8. le voyage peut se faire en aller et retour
+        exemple, si la destination est A et le depart est B,
+        il y a aussi un lalana qui va de A vers B
+    9. ajouter un choix de booleen allerRetour dans infoVoyage
+    10. ajouter un choix d'aller et de retour dans l'interface
+    11. modifier la logique pour gerer l'aller et le retour
+        si aller , si dans lalana A vers B de distance 100km, 
+        si pause et a 60ekm de A, alors lors du retour, la pause sera a 40ekm de B
+        et meme logique pour les lavakas
+
+Sujet fanampiny 20-01-26
+    1.(ok) Ajouter les tables: simba, typeReparation, confPrix, prixSimba 
+    2.(ok) creer CRUD pour chaque table
+    3. creer un formulaire d'entree de simba selon lalana
+    4. creer un formulaire d'entree de confPrix selon typeReparation
+    5. (ok) creer une fonction de calcul du cout total des reparations par lalana
+         en fonction des simba rencontres sur le lalana
+    6. creer une fonction qui calcul le cout de reparation par voyage
+         en fonction des lalana empruntes et des simba rencontres
+    7. ajouter l'affichage du cout total des reparations dans l'interface de voyage
+    8. ajouter l'affichage du cout par lalana dans l'interface de voyage
+    9. creer une fonction qui identifie si la profondeur du simba 
+        est entre min et max de la confPrix pour determiner le cout de reparation 
+
+Sujet fanampiny 27-01-26
+    1. (ok) Ajouter les tables confPluie et pluviometrie
+    2. (...) Faire CRUD
+    3. creer un formulaire d'entree de pluviometrie 
+    4. creer un formulaire d'entree de confPluie
+    5. creer une fonction qui calcul la distance de chaque lalana dans le voyage 
+        puis calcule la distance total du voyage
+    6. creer une fonction qui verifie si pointKilometrique de simba est entre 
+        pkDebut et pkFin d'une pluviometrie pour savoir si le simba est
+        affecte par la pluviometrie
+    7. creer une fonction qui verifie si la pluviometrie est 
+        entre minP et maxP de la confPluie pour savoir avec quel 
+        matiere le lalana sera repare
+    8. creer une fonction qui calcule le cout total des reparations
+        des lalanas dans un voyage en tenant compte de la pluviometrie
+    9. ajouter l'affichage du cout total des reparations de chaque lalana puis
+        chaque voyage dans l'interface sous forme de tableau avec le total a la fin de
+        la page
+
+Sujet fanampiny 28-01-26
+    1. modifier la table simba pour ajouter une colonne pkFin 
+        si pointKilometrique etait le pkDebut, et une colonne tauxRalentissement
+    2. modifier le CRUD simba et son model
+    3. modifier la fonction de calcul du cout de reparation pour chaque lalana
+        en fonction des simba rencontres sur le lalana
+        pour tenir compte du pkFin
+    4. oublier la table InfoVoyage pour le moment
+    5. modifier l'interface de voyage pour afficher le cout des reparations
+    6. modifier le MainPanel pour ajouter un boutton qui ouvre une nouvelle fenetre
+        qui utilise SIG pour afficher une vraie carte
+    7. dans cette fenetre, afficher une liste de toutes les routes nationales (RN)
+    8. quand on clique sur une RN, tracer cette RN sur la carte avec une couleur bleu
+    9. sur cette RN, afficher les Simba en rouge en considerant leur pkDebut et pkFin
+    10. ne plus considerer les lavaka pour le moment
+    11. ajouter un boutton pour fermer cette fenetre et revenir a MainPanel
+    12. creer une fonction qui trie les RN
+    13. une fonction qui affiche les RN
+    14. une fonction qui colorie les RN en bleu
+    15. une fonction qui affiche les simba en  rouge
+    16. une fonction qui ferme la fenetre SIG et revenir a MainPanel
