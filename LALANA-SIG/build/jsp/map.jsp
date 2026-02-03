@@ -35,13 +35,22 @@
 
     <script>
         // Création de la carte
-        const map = L.map('map').setView([-18.8792, 46.8696], 7);
+        const map = L.map('map').setView([        const map = L.map('map').setView([-18.8792, 46.8696], 7);
+-18.8792, 46.8696], 7);        const map = L.map('map').setView([-18.8792, 46.8696], 7);
+
 
         // Fond de carte OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
     </script>
+    <script>
+fetch("roads.geojson")
+  .then(r => r.json())
+  .then(data => {
+    L.geoJSON(data).addTo(map);
+  });
+</script>
 
 </body>
 </html>

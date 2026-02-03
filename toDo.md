@@ -102,3 +102,5 @@ Tâches partagées
 
     Ensemble : intégration & tests
 
+
+osmium cat madagascar-260130.osm.pbf -o data.geojson

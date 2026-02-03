@@ -2,12 +2,16 @@ package servlet;
 
 import dao.RNDAO;
 import model.RN;
+import utildb.ConnexionPSQL;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
+/*
+import javax.servlet.*;
+import javax.servlet.http.*;
+*/
 import java.io.*;
 import java.util.Vector;
 
+/*
 public class RNServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -17,7 +21,8 @@ public class RNServlet extends HttpServlet {
         PrintWriter out = res.getWriter();
 
         try {
-            Vector<RN> rns = RNDAO.getAll();
+            ConnexionPSQL conn = new ConnexionPSQL();
+            Vector<RN> rns = RNDAO.getAllRN(conn);
 
             out.print("[");
             for (int i = 0; i < rns.size(); i++) {
@@ -38,3 +43,6 @@ public class RNServlet extends HttpServlet {
         }
     }
 }
+*/
+
+// Classe commentée en attente des dépendances servlet

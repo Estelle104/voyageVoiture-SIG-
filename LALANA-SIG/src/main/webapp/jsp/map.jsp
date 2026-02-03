@@ -44,6 +44,13 @@
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
     </script>
+    <script>
+fetch("roads.geojson")
+  .then(r => r.json())
+  .then(data => {
+    L.geoJSON(data).addTo(map);
+  });
+</script>
 
 </body>
 </html>

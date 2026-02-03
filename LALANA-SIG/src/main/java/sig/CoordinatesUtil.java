@@ -32,7 +32,7 @@ public class CoordinatesUtil {
     }
     
     /**
-     * Calculer la distance entre deux points (formule Haversine approximée)
+     * Calculer la distance entre deux s (formule Haversine approximée)
      */
     public static double distance(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371; // Rayon terrestre en km

@@ -18,9 +18,9 @@ WEB_DIR="src/main/webapp"
 BUILD_DIR="build"
 LIB_DIR="lib"
 
-TOMCAT_WEBAPPS="/home/itu/Documents/Miantsa/tomcat/webapps"
-TOMCAT_BIN="/home/itu/Documents/Miantsa/tomcat/bin"
-CATALINA_LOG="/home/itu/Documents/Miantsa/tomcat/logs/catalina.out"
+TOMCAT_WEBAPPS="/home/itu/S2/programmation/a_lecon/tomcat/apache-tomcat-10.0.16/webapps"
+TOMCAT_BIN="/home/itu/S2/programmation/a_lecon/tomcat/apache-tomcat-10.0.16/bin"
+CATALINA_LOG="/home/itu/S2/programmation/a_lecon/tomcat/apache-tomcat-10.0.16/logs/catalina.out"
 
 SERVLET_API_JAR="$LIB_DIR/servlet-api.jar"
 
