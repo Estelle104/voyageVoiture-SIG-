@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compilation du projet voyageVoiture-SIG (LALANA-SIG)
-# Utilise la structure Maven
+# Compile avec javac directement
 
 echo "🔨 Compilation du projet LALANA-SIG..."
 
@@ -17,9 +17,8 @@ find src/main/java -name "*.java" -type f | xargs javac -d build/classes -cp "li
 if [ $? -eq 0 ]; then
     echo "✅ Compilation réussie!"
     echo ""
-    echo "🚀 Démarrage de l'interface Swing..."
-    java -cp "build/classes:lib/*" App 2>&1 &
-    echo "✅ Application lancée!"
+    echo "� Pour lancer l'application:"
+    echo "   java -cp \"build/classes:lib/*\" main.AppLauncher"
 else
     echo "❌ Erreur de compilation"
     exit 1

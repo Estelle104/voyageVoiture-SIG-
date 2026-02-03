@@ -8,6 +8,7 @@ import utildb.ConnexionPSQL;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Desktop;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -90,39 +91,39 @@ public class MainPanel extends JPanel {
 
             btnAfficherMap = new JButton("Afficher la carte SIG");
             btnAfficherMap.addActionListener(e -> {
-                String url = "http://localhost:8080/VoyageVoiture/jsp/sig.jsp";
-                
                 try {
-                    // Vérifier d'abord si Tomcat est accessible
-                    java.net.URL testUrl = new java.net.URL(url);
-                    java.net.HttpURLConnection conn = (java.net.HttpURLConnection) testUrl.openConnection();
-                    conn.setRequestMethod("HEAD");
-                    conn.setConnectTimeout(3000);
-                    int responseCode = conn.getResponseCode();
-                    conn.disconnect();
+                    // Essayer d'abord localhost:8080 (Tomcat)
+                    String urlTomcat = "http://localhost:8080/VoyageVoiture/jsp/sig.jsp";
                     
-                    if (responseCode == 200) {
-                        // Tomcat répond, ouvrir le navigateur
-                        Desktop.getDesktop().browse(new URI(url));
+                    if (isTomcatAvailable()) {
+                        // Tomcat est disponible, utiliser localhost:8080
+                        Desktop.getDesktop().browse(new URI(urlTomcat));
                     } else {
-                        throw new Exception("Tomcat répond avec le code " + responseCode);
+                        // Tomcat n'est pas disponible, utiliser le fichier local
+                        java.io.File sigFile = new java.io.File("LALANA-SIG/src/main/webapp/jsp/sig.jsp");
+                        if (!sigFile.exists()) {
+                            sigFile = new java.io.File("src/main/webapp/jsp/sig.jsp");
+                        }
+                        
+                        if (!sigFile.exists()) {
+                            JOptionPane.showMessageDialog(this,
+                                "❌ Le fichier sig.jsp n'a pas pu être trouvé\n" +
+                                "Chemin attendu: src/main/webapp/jsp/sig.jsp",
+                                "Erreur",
+                                JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        
+                        String fileUrl = sigFile.getAbsoluteFile().toURI().toString();
+                        Desktop.getDesktop().browse(new URI(fileUrl));
                     }
-                } catch (Exception ex) {
-                    String message = "❌ Impossible d'ouvrir la carte SIG\n\n" +
-                        "Raisons possibles:\n" +
-                        "1. Tomcat n'est pas lancé\n" +
-                        "2. L'application n'est pas déployée\n" +
-                        "3. Pas de navigateur disponible\n\n" +
-                        "📌 Ouvre manuellement: " + url + "\n\n" +
-                        "Erreur: " + ex.getMessage();
                     
-                    JOptionPane.showMessageDialog(
-                        null,
-                        message,
-                        "Erreur d'accès à la carte",
-                        JOptionPane.ERROR_MESSAGE
-                    );
+                } catch (Exception ex) {
                     ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this,
+                        "❌ Erreur lors de l'ouverture de la carte:\n" + ex.getMessage(),
+                        "Erreur",
+                        JOptionPane.ERROR_MESSAGE);
                 }
             });
 
@@ -340,6 +341,24 @@ public class MainPanel extends JPanel {
         } else {
             infoCheminLabel.setText(
                     String.format("Distance : %.1f km |", distance));
+        }
+    }
+
+    /**
+     * Vérifie si Tomcat est disponible à localhost:8080
+     */
+    private boolean isTomcatAvailable() {
+        try {
+            java.net.URL url = new java.net.URL("http://localhost:8080/");
+            java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("HEAD");
+            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(2000);
+            int responseCode = conn.getResponseCode();
+            conn.disconnect();
+            return responseCode == 200;
+        } catch (Exception e) {
+            return false;
         }
     }
 

@@ -7,17 +7,15 @@ import utildb.ConnexionPSQL;
 /*
 import javax.servlet.*;
 import javax.servlet.http.*;
-*/
 import java.io.*;
 import java.util.Vector;
 
-/*
 public class RNServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
 
-        res.setContentType("application/json");
+        res.setContentType("application/json; charset=UTF-8");
         PrintWriter out = res.getWriter();
 
         try {
@@ -30,7 +28,7 @@ public class RNServlet extends HttpServlet {
 
                 out.print("{");
                 out.print("\"id\":" + rn.getId() + ",");
-                out.print("\"nom\":\"" + rn.getNom() + "\",");
+                out.print("\"nom\":\"" + rn.getNom().replaceAll("\"", "\\\\\"") + "\",");
                 out.print("\"geometry\":" + rn.getGeoJson());
                 out.print("}");
 
@@ -40,9 +38,10 @@ public class RNServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
+            out.print("[]");
         }
     }
 }
 */
 
-// Classe commentée en attente des dépendances servlet
+// Classe commentée - À activer quand Servlet API sera disponible
