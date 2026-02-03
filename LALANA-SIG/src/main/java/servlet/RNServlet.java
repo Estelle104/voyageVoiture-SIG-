@@ -4,9 +4,8 @@ import dao.RNDAO;
 import model.RN;
 import utildb.ConnexionPSQL;
 
-/*
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import java.io.*;
 import java.util.Vector;
 
@@ -42,6 +41,3 @@ public class RNServlet extends HttpServlet {
         }
     }
 }
-*/
-
-// Classe commentée - À activer quand Servlet API sera disponible
