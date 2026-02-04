@@ -104,3 +104,17 @@ Tâches partagées
 
 
 osmium cat madagascar-260130.osm.pbf -o data.geojson
+
+---- LANCEMENT --------
+# 1. Compiler
+bash compile.sh
+
+# 2. Définir TOMCAT_HOME et déployer
+export TOMCAT_HOME=/opt/lampp/htdocs/tomcat/apache-tomcat-10.0.16/
+bash deploy.sh
+
+# 3. Démarrer Tomcat
+$TOMCAT_HOME/bin/startup.sh
+
+# 4. Lancer l'application
+bash run.sh

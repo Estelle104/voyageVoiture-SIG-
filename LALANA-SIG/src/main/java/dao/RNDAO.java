@@ -15,6 +15,7 @@ public class RNDAO {
                     SELECT
                         id,
                         nom,
+                        ref,
                         ST_AsGeoJSON(geom) AS geojson
                     FROM rn
                     ORDER BY nom
@@ -33,6 +34,7 @@ public class RNDAO {
                 RN rn = new RN();
                 rn.setId(rs.getInt("id"));
                 rn.setNom(rs.getString("nom"));
+                rn.setRef(rs.getString("ref"));
                 rn.setGeoJson(rs.getString("geojson"));
 
                 liste.add(rn);

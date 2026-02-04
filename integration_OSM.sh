@@ -25,9 +25,11 @@ CREATE EXTENSION postgis;
 CREATE EXTENSION hstore;
 
 
-# changer permission
-chmod o+r madagascar_RN.osm
+# changer permissionchmod o+r madagascar_RN.osm
 chmod o+x ~/Documents ~/Documents/GitHub ~/Documents/GitHub/voyageVoiture-SIG
+
+
+# chmod o+x ~/Documents ~/Documents/GitHub ~/Documents/GitHub/voyageVoiture-SIG
 
 
 # IMPORT

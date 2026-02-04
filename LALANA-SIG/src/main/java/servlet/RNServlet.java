@@ -28,6 +28,8 @@ public class RNServlet extends HttpServlet {
                 out.print("{");
                 out.print("\"id\":" + rn.getId() + ",");
                 out.print("\"nom\":\"" + rn.getNom().replaceAll("\"", "\\\\\"") + "\",");
+                String ref = rn.getRef() != null ? rn.getRef() : "";
+                out.print("\"ref\":\"" + ref.replaceAll("\"", "\\\\\"") + "\",");
                 out.print("\"geometry\":" + rn.getGeoJson());
                 out.print("}");
 
@@ -37,7 +39,9 @@ public class RNServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            out.print("[]");
+            System.err.println("❌ Erreur RNServlet: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace(System.err);
+            out.print("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
 }

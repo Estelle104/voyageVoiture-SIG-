@@ -4,6 +4,7 @@ public class RN {
 
     private int id;
     private String nom;
+    private String ref;  // Référence de la route
 
     // on stocke la géométrie en GeoJSON (simple pour Leaflet)
     private String geoJson;
@@ -31,6 +32,14 @@ public class RN {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
     }
 
     public String getGeoJson() {

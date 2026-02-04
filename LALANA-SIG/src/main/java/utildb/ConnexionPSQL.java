@@ -11,6 +11,7 @@ public class ConnexionPSQL {
         if (this.connection == null) {
             try {
                 Class.forName("org.postgresql.Driver");
+                System.out.println("✅ Driver PostgreSQL chargé");
 
                 // URL de connexion PostgreSQL
                 // Format : jdbc:postgresql://host:port/database
@@ -18,13 +19,21 @@ public class ConnexionPSQL {
                 String user = "postgres";
                 String password = "4185";
 
+                System.out.println("🔄 Tentative de connexion: " + url);
                 this.connection = DriverManager.getConnection(url, user, password);
+                System.out.println("✅ Connexion réussie à PostgreSQL");
 
                 // Désactiver l'auto-commit pour gérer manuellement commit/rollback
                 this.connection.setAutoCommit(false);
 
-            } catch (ClassNotFoundException | SQLException e) {
-                throw new Exception("Connexion tsy mety " + e.getMessage());
+            } catch (ClassNotFoundException e) {
+                System.err.println("❌ Driver PostgreSQL non trouvé: " + e.getMessage());
+                throw new Exception("Driver PostgreSQL non trouvé: " + e.getMessage());
+            } catch (SQLException e) {
+                System.err.println("❌ Erreur SQL: " + e.getMessage());
+                System.err.println("   SQL State: " + e.getSQLState());
+                System.err.println("   Error Code: " + e.getErrorCode());
+                throw new Exception("Erreur de connexion PostgreSQL: " + e.getMessage());
             }
         }
         return this.connection;
