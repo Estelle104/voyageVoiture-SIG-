@@ -152,4 +152,31 @@ public class SimbaDAO {
         return result;
     }
 
+    // GET ALL
+    public static Vector<Simba> getAll(ConnexionOracle conn) throws Exception {
+        Vector<Simba> list = new Vector<>();
+        String sql = "SELECT * FROM Simba ORDER BY idLalana, pkDebut";
+
+        try (Connection c = conn.getConnection();
+                PreparedStatement pstmt = c.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Simba s = new Simba();
+                s.setId(rs.getInt("id"));
+                s.setDescriptions(rs.getString("descriptions"));
+                s.setPkDebut(rs.getDouble("pkDebut"));
+                s.setPkFin(rs.getDouble("pkFin"));
+                s.setTauxRalentissement(rs.getDouble("tauxRalentissement"));
+                s.setSurface(rs.getDouble("surface"));
+                s.setProfondeur(rs.getDouble("profondeur"));
+                s.setIdLalana(rs.getInt("idLalana"));
+                s.setIdLavaka((Integer) rs.getObject("idLavaka"));
+                s.setIdTypeMatiere(rs.getInt("idTypeMatiere"));
+                list.add(s);
+            }
+        }
+        return list;
+    }
+
 }

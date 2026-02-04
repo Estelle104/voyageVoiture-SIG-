@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://jakarta.ee/xml/ns/jakartaee"
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://jakarta.ee/xml/ns/jakartaee
-         http://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
-    <display-name>VoyageVoiture</display-name>
-
-    <!-- Servlet pour les Routes Nationales -->
     <servlet>
         <servlet-name>RNServlet</servlet-name>
         <servlet-class>servlet.RNServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>RNServlet</servlet-name>
         <url-pattern>/rn</url-pattern>
     </servlet-mapping>
-
-    <!-- Session config -->
-    <session-config>
-        <tracking-mode>COOKIE</tracking-mode>
-    </session-config>
+    
+    <servlet>
+        <servlet-name>SimbaServlet</servlet-name>
+        <servlet-class>servlet.SimbaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SimbaServlet</servlet-name>
+        <url-pattern>/simba</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LalanaServlet</servlet-name>
+        <servlet-class>servlet.LalanaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LalanaServlet</servlet-name>
+        <url-pattern>/lalana</url-pattern>
+    </servlet-mapping>
 
 </web-app>

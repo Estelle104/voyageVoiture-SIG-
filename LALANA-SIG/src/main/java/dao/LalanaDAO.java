@@ -14,7 +14,7 @@ public class LalanaDAO {
 
     // CREATE
     public static void save(ConnexionOracle conn, Lalana lalana) throws Exception {
-        String sql = "INSERT INTO lalana (nom, distance, debut, fin, largeur) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO lalana (nom, distance, debut, fin, largeur) VALUES (?, ?, ?, ?, ?)";
 
         Connection c = null;
         PreparedStatement pstmt = null;
